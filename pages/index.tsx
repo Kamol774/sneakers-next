@@ -4,19 +4,21 @@ import { Inter } from "next/font/google";
 import { Box, Container, Stack } from "@mui/material";
 import { brown, green } from "@mui/material/colors";
 import { NextPage } from "next";
-import withLayoutMain from "@/libs/components/layout/layoutHome";
+import withLayoutMain from "@/libs/components/layout/LayoutHome";
 
 const Home: NextPage = () => {
   return (
     <>
-      <Container>
+      <Stack>
         <Stack flexDirection={"column"}>
-          <Box>Popular products</Box>
+          <Stack>
+            <Stack className="container">Popular products</Stack>
+          </Stack>
           <Box>Top agents</Box>
           <Box>Top products</Box>
           <Box>Events</Box>
         </Stack>
-      </Container>
+      </Stack>
     </>
   );
 };
