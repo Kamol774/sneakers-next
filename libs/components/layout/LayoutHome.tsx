@@ -1,33 +1,90 @@
-import { Stack } from "@mui/material";
-import { green } from "@mui/material/colors";
-import Head from "next/head";
-import Top from "../Top";
-import Footer from "../Footer";
+import React, { useEffect } from 'react';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
+import Head from 'next/head';
+import Top from '../Top';
+import Footer from '../Footer';
+import { Stack } from '@mui/material';
+import HeaderFilter from '../homepage/HeaderFilter';
+import FiberTop from '../common/FiberTop';
+import Fiber from '../common/Fiber';
+import { userVar } from '../../../apollo/store';
+import { useReactiveVar } from '@apollo/client';
+import { getJwtToken, updateUserInfo } from '../../auth';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Chat from '../Chat';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const withLayoutMain = (Component: any) => {
-  return (props: any) => {
-    return (
-      <>
-        <Head>
-          <title>Sneakers</title>
-        </Head>
-        <Stack id="pc-wrap">
-          <Stack id={"top"}>
-            <Top />
-          </Stack>
-          <Stack className={"header-main"}>Header Filter</Stack>
+	return (props: any) => {
+		const device = useDeviceDetect();
+		const user = useReactiveVar(userVar);
 
-          <Stack id={"main"}>
-            <Component {...props} />
-          </Stack>
+		/** LIFECYCLES **/
+		useEffect(() => {
+			const jwt = getJwtToken();
+			if (jwt) updateUserInfo(jwt);
+		}, []);
 
-          <Stack id={"footer"}>
-            <Footer />
-          </Stack>
-        </Stack>
-      </>
-    );
-  };
+		/** HANDLERS **/
+
+		if (device == 'mobile') {
+			return (
+				<>
+					<Head>
+						<title>Sneakers</title>
+						<meta name={'title'} content={`Sneakers`} />
+					</Head>
+					<Stack id="mobile-wrap">
+						<Stack id={'top'}>
+							<Top />
+						</Stack>
+
+						<Stack id={'main'}>
+							<Component {...props} />
+						</Stack>
+
+						<Stack id={'footer'}>
+							<Footer />
+						</Stack>
+					</Stack>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<Head>
+						<title>Sneakers</title>
+						<meta name={'title'} content={`Sneakers`} />
+					</Head>
+					<Stack id="pc-wrap">
+						<Stack id={'top'}>
+							<Top />
+						</Stack>
+
+						<Stack className={'header-main'}>
+							<Stack className={'container'}>
+								<HeaderFilter />
+								<FiberTop />
+							</Stack>
+						</Stack>
+
+						<Stack id={'main'}>
+							<Component {...props} />
+							{/* <Fiber /> */}
+						</Stack>
+
+						{user?._id && <Chat />}
+
+						<Stack id={'footer'}>
+							<Footer />
+						</Stack>
+					</Stack>
+				</>
+			);
+		}
+	};
 };
 
 export default withLayoutMain;
