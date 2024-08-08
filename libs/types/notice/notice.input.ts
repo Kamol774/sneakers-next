@@ -1,27 +1,19 @@
 import { Direction } from '../../enums/common.enum';
-import { NoticeCategory } from '../../enums/notice.enum';
-import { TotalCounter } from '../product/product';
+import { NoticeStatus, NoticeType } from '../../enums/notice.enum';
 
-export interface Notice {
-	noticeCategory: NoticeCategory;
-	noticeTitle: string;
+export interface NoticeInput {
+	noticeType: NoticeType;
 	noticeContent: string;
+	noticeStatus: NoticeStatus;
 	memberId?: string;
 }
 
-interface NISearch {
-	noticeRefId?: string;
-}
-
 export interface NoticesInquiry {
-	page: number;
-	limit: number;
-	sort?: string;
-	direction?: Direction;
-	search: NISearch;
-}
-
-export interface Notices {
-	list: Notices[];
-	metaCounter: TotalCounter[];
+	page: number | undefined;
+	limit: number | undefined;
+	sort?: string | undefined;
+	direction?: Direction | undefined;
+	noticeType?: NoticeType | undefined;
+	noticeStatus?: NoticeStatus | undefined;
+	text?: string | undefined;
 }

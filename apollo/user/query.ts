@@ -593,6 +593,223 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 	}
 `;
 
+/**************************
+ *         FAQ        *
+ *************************/
+export const GET_FAQ = gql`
+	query GetFaq($input: String!) {
+		getFaq(input: $input) {
+			_id
+			faqQuestion
+			faqAnswer
+			faqType
+			faqStatus
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
+				}
+			}
+			createdAt
+			updatedAt
+		}
+	}
+`;
+export const GET_FAQS = gql`
+	query GetFaqs($input: FaqInquiryDto!) {
+		getFaqs(input: $input) {
+			list {
+				_id
+				faqQuestion
+				faqAnswer
+				faqType
+				createdAt
+				updatedAt
+				faqStatus
+				memberData {
+					_id
+					memberType
+					memberStatus
+					memberAuthType
+					memberPhone
+					memberNick
+					memberFullName
+					memberImage
+					memberAddress
+					memberDesc
+					memberProducts
+					memberArticles
+					memberFollowings
+					memberPoints
+					memberLikes
+					memberViews
+					memberComments
+					memberRank
+					memberWarnings
+					memberBlocks
+					createdAt
+					updatedAt
+					deletedAt
+					accessToken
+					meLiked {
+						memberId
+						likeRefId
+						myFavorite
+					}
+					meFollowed {
+						followingId
+						followerId
+						myFollowing
+					}
+				}
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+/**************************
+ *         NOTICE        *
+ *************************/
+export const GET_NOTICE = gql`
+	query GetNotice($input: String!) {
+		getNotice(input: $input) {
+			_id
+			noticeType
+			noticeContent
+			noticeStatus
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+			}
+		}
+	}
+`;
+export const GET_NOTICES = gql`
+	query GetNotices($input: NoticeInquiryDto!) {
+		getNotices(input: $input) {
+			list {
+				_id
+				noticeType
+				noticeContent
+				noticeStatus
+				createdAt
+				updatedAt
+				memberData {
+					_id
+					memberType
+					memberStatus
+					memberAuthType
+					memberPhone
+					memberNick
+					memberFullName
+					memberImage
+					memberAddress
+					memberDesc
+					memberProducts
+					memberArticles
+					memberFollowings
+					memberPoints
+					memberLikes
+					memberViews
+					memberComments
+					memberRank
+					memberWarnings
+					memberBlocks
+					createdAt
+					updatedAt
+					deletedAt
+					accessToken
+				}
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+/**************************
+ *      NOTIFICATION      *
+ *************************/
+
+export const GET_NOTIFICATIONS = gql`
+	query GetNotifications($input: NotificationsInquiry!) {
+		getNotifications(input: $input) {
+			list {
+				_id
+				notificationType
+				notificationStatus
+				notificationGroup
+				notificationTitle
+				notificationDesc
+				authorId
+				receiverId
+				productId
+				articleId
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
 /*****************************/
 /*         React Query       */
 /*****************************/

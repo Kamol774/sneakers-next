@@ -13,10 +13,16 @@ import { CaretDown } from 'phosphor-react';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import { useReactiveVar } from '@apollo/client';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
+import { NotificationUpdate } from '../types/notification/notification.update';
+import { NotificationDTO } from '../types/notification/notification';
+import { UPDATE_NOTIFICATION } from '../../apollo/user/mutation';
+import { GET_NOTIFICATIONS } from '../../apollo/user/query';
+import { NotificationStatus } from '../enums/notification.enum';
+import { T } from '../types/common';
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -33,7 +39,76 @@ const Top = () => {
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
 
+	const [notificationAnchorEl, setNotificationAnchorEl] = useState<HTMLElement | null>(null);
+	const [notifications, setNotifications] = useState<NotificationDTO[]>([]);
+	const notificationOpen = Boolean(notificationAnchorEl);
+	const [unreadCount, setUnreadCount] = useState(0);
+
+	// APOLLO REQUEST
+	const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
+
+	const {
+		loading: notificationsLoading,
+		data: notificationsData,
+		error: notificationsError,
+		refetch: refetchNotifications,
+	} = useQuery(GET_NOTIFICATIONS, {
+		fetchPolicy: 'cache-and-network',
+		variables: { input: { page: 1, limit: 100, search: { receiverId: '' } } },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			if (data?.getNotifcations?.list) {
+				setNotifications(data?.getNotifcations?.list);
+				const unread = data?.getNotifcations?.list.filter(
+					(notification: any) => notification.notificationStatus === NotificationStatus.WAIT,
+				).length;
+				setUnreadCount(unread);
+			}
+		},
+	});
+
 	/** LIFECYCLES **/
+
+	useEffect(() => {
+		if (notificationsData) {
+			setNotifications(notificationsData.getNotifications.list);
+			const unread = notificationsData.getNotifications.list.filter(
+				(notification: any) => notification.notificationStatus === NotificationStatus.WAIT,
+			).length;
+			setUnreadCount(unread);
+		}
+	}, [notificationsData]);
+
+	useEffect(() => {
+		if (notificationsData?.getNotifcations?.list) {
+			setNotifications(notificationsData.getNotifcations.list);
+			notificationsData.getNotifications.list.forEach((notification: { _id: any }) => {
+				console.log('Notification_id:', notification._id); // check if id is exist
+			});
+		}
+	}, [notificationsData]);
+
+	let notifics = notificationsData?.getNotifications?.list;
+
+	const [hasNewNotifications, setHasNewNotifications] = useState(false);
+
+	useEffect(() => {
+		if (
+			notifications &&
+			notifications.some((notification) => notification.notificationStatus === NotificationStatus.WAIT)
+		) {
+			setHasNewNotifications(true);
+		} else {
+			setHasNewNotifications(false);
+		}
+	}, [notifications]);
+
+	useEffect(() => {
+		if (!notificationOpen) {
+			refetchNotifications();
+		}
+	}, [notificationOpen, refetchNotifications]);
+
 	useEffect(() => {
 		if (localStorage.getItem('locale') === null) {
 			localStorage.setItem('locale', 'en');
@@ -94,6 +169,53 @@ const Top = () => {
 			setAnchorEl(event.currentTarget);
 		} else {
 			setAnchorEl(null);
+		}
+	};
+
+	const handleNotificationClick = (event: React.MouseEvent<SVGSVGElement>) => {
+		setNotificationAnchorEl(event.currentTarget as unknown as HTMLElement);
+	};
+
+	const handleMenuItemClick = (notification: NotificationDTO) => {
+		if (!notification.productId && !notification.articleId) {
+			router.push(`/member?memberId=${notification.authorId}`);
+		} else if (notification.articleId) {
+			router.push(`/community/detail?id=${notification.articleId}`);
+		} else if (notification.productId) {
+			router.push(`/product/detail?id=${notification.productId}`);
+		}
+		// if (notification.productId) {
+		// 	router.push(`/community/detail?id=${notification.articleId}`)
+		// } else if (notification.articleId) {
+		// 	router.push(`/community/detail?articleCategory=${notification.articleId}`)
+		// } else if (notification.authorId) {
+		// 	router.push(`/member?memberId=${notification.authorId}`)
+		// }
+
+		console.log(notification, '++++++++++++++++++++++++++');
+
+		const updateNotification: NotificationUpdate = {
+			_id: notification._id,
+			notificationStatus: NotificationStatus.READ,
+		};
+		updateNotificationHandler(updateNotification);
+	};
+
+	const handleNotificationClose = () => {
+		setNotificationAnchorEl(null);
+	};
+
+	const updateNotificationHandler = async (updateData: NotificationUpdate) => {
+		try {
+			console.log('+updateData:', updateData);
+			await updateNotification({
+				variables: {
+					input: updateData,
+				},
+			});
+			await refetchNotifications;
+		} catch (err: any) {
+			console.log('Error on updateNotificationHandler', err.message);
 		}
 	};
 
@@ -236,7 +358,102 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+								{user?._id && (
+									<div style={{ position: 'relative', display: 'inline-block', color: 'white', cursor: 'pointer' }}>
+										<NotificationsOutlinedIcon className={'notification-icon'} onClick={handleNotificationClick} />
+										{hasNewNotifications && (
+											<div
+												style={{
+													position: 'absolute',
+													top: '-5px',
+													right: '-3px',
+													width: '15px',
+													height: '15px',
+													borderRadius: '50%',
+													backgroundColor: '#ef1d26',
+												}}
+											>
+												{' '}
+												{unreadCount > 0 && (
+													<span
+														style={{ fontSize: '12px', fontWeight: '600', display: 'flex', justifyContent: 'center' }}
+													>
+														{unreadCount}
+													</span>
+												)}
+											</div>
+										)}
+										<Menu
+											anchorEl={notificationAnchorEl}
+											open={Boolean(notificationAnchorEl)}
+											onClose={handleNotificationClose}
+											MenuListProps={{
+												'aria-labelledby': 'notification-button',
+											}}
+											PaperProps={{
+												style: {
+													padding: '20px',
+													marginTop: '40px',
+													minHeight: '400px',
+													minWidth: '400px',
+													maxHeight: '400px',
+													width: '400px',
+													whiteSpace: 'normal',
+													wordWrap: 'break-word',
+													borderRadius: '22px',
+													background: '#b7f6f7',
+													fontSize: '16px',
+												},
+											}}
+										>
+											<strong> Notifications</strong>
+											{!notificationsLoading && (!notifics || notifics.length === 0) && (
+												<MenuItem style={{ margin: '100' }}>No notifications</MenuItem>
+											)}
+
+											{notificationsLoading && <MenuItem>Loading...</MenuItem>}
+											{notifics &&
+												notifics.map((notification: any) => {
+													const isRead = notification.notificationStatus === NotificationStatus.READ;
+													const notSeen = notification.notificationStatus === NotificationStatus.WAIT;
+
+													return (
+														<MenuItem
+															key={notification._id}
+															onClick={() => handleMenuItemClick(notification)}
+															style={{
+																whiteSpace: 'normal',
+																wordWrap: 'break-word',
+																backgroundColor: isRead ? '#dcd2f7' : '#f5a4c4',
+																borderRadius: 20,
+																padding: '10px',
+																margin: 10,
+															}}
+														>
+															<div style={{ display: 'flex', alignItems: 'center' }}>
+																{notSeen && (
+																	<div
+																		style={{
+																			width: '10px',
+																			height: '10px',
+																			borderRadius: '50%',
+																			backgroundColor: '#42a5f5',
+																			marginRight: '20px',
+																		}}
+																	/>
+																)}
+
+																<div>
+																	<strong>{notification.notificationTitle}</strong>
+																	<p>{notification.notificationDesc}</p>
+																</div>
+															</div>
+														</MenuItem>
+													);
+												})}
+										</Menu>
+									</div>
+								)}
 								<Button
 									disableRipple
 									className="btn-lang"
@@ -254,13 +471,7 @@ const Top = () => {
 
 								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
 									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
-											className="img-flag"
-											src={'/img/flag/langen.png'}
-											onClick={langChoice}
-											id="en"
-											alt={'usaFlag'}
-										/>
+										<img className="img-flag" src={'/img/'} onClick={langChoice} id="en" alt={'usaFlag'} />
 										{t('English')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="kr">

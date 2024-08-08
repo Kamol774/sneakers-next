@@ -1,20 +1,22 @@
 import { BoardArticleCategory, BoardArticleStatus } from '../../enums/board-article.enum';
-import { NoticeStatus, NoticeType } from '../../enums/notice.enum';
+import { FaqStatus, FaqType } from '../../enums/faq.enum';
 import { Member } from '../member/member';
 import { MeLiked, TotalCounter } from '../product/product';
 
-export interface Notice {
+export interface Faq {
 	_id: string;
-	noticeType: NoticeType;
-	noticeContent: string;
-	noticeStatus: NoticeStatus;
+	faqQuestion: string;
+	faqAnswer: string;
+	faqType: FaqType;
+	faqStatus: FaqStatus;
+	memberId: string;
 	createdAt: Date;
 	updatedAt: Date;
 	/** from aggregation **/
 	memberData?: Member;
 }
 
-export interface Notices {
-	list: Notice[];
+export interface Faqs {
+	list: Faq[];
 	metaCounter: TotalCounter[];
 }
