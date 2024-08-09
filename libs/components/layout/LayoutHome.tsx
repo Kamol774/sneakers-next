@@ -75,7 +75,7 @@ const withLayoutMain = (Component: any) => {
 							{/* <Fiber /> */}
 						</Stack>
 
-						{user?._id && <Chat />}
+						{<Chat />}
 
 						<Stack id={'footer'}>
 							<Footer />
