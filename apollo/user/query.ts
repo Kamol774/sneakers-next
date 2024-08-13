@@ -41,46 +41,47 @@ export const GET_AGENTS = gql`
 	}
 `;
 
-export const GET_MEMBER = gql`
+export const GET_MEMBER = gql(`  
 	query GetMember($input: String!) {
-		getMember(memberId: $input) {
-			_id
-			memberType
-			memberStatus
-			memberAuthType
-			memberPhone
-			memberNick
-			memberFullName
-			memberImage
-			memberDesc
-			memberProducts
-			memberArticles
-			memberFollowers
-			memberFollowings
-			memberPoints
-			memberLikes
-			memberViews
-			memberComments
-			memberRank
-			memberWarnings
-			memberBlocks
-			createdAt
-			updatedAt
-			deletedAt
-			accessToken
-			meLiked {
-				memberId
-				likeRefId
-				myFavorite
-			}
-			meFollowed {
-				followingId
-				followerId
-				myFollowing
-			}
-		}
+    getMember(memberId: $input) {
+        _id
+        memberType
+        memberStatus
+        memberAuthType
+        memberPhone
+        memberNick
+        memberFullName
+        memberImage
+        memberAddress
+        memberDesc
+        memberProducts
+        memberArticles
+        memberFollowings
+        memberFollowers
+        memberPoints
+        memberLikes
+        memberViews
+        memberComments
+        memberRank
+        memberWarnings
+        memberBlocks
+        createdAt
+        updatedAt
+        deletedAt
+        accessToken
+        meLiked {
+            memberId
+            likeRefId
+            myFavorite
+        }
+        meFollowed {
+            followingId
+            followerId
+            myFollowing
+        }
+    }
 	}
-`;
+`);
 
 /**************************
  *        PRODUCT        *
@@ -497,16 +498,6 @@ export const GET_MEMBER_FOLLOWERS = gql`
 				followerId
 				createdAt
 				updatedAt
-				meLiked {
-					memberId
-					likeRefId
-					myFavorite
-				}
-				meFollowed {
-					followingId
-					followerId
-					myFollowing
-				}
 				followerData {
 					_id
 					memberType
@@ -531,6 +522,17 @@ export const GET_MEMBER_FOLLOWERS = gql`
 					deletedAt
 					createdAt
 					updatedAt
+					accessToken
+				}
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
 				}
 			}
 			metaCounter {

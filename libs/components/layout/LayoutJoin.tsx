@@ -64,16 +64,7 @@ const withLayoutJoin = (Component: any) => {
 							<Top />
 						</Stack>
 
-						<Stack
-							className={`header-join`}
-							style={
-								{
-									// backgroundImage: `url(/public/img/banner/main-banner.jpg)`,
-									// backgroundSize: 'cover',
-									// boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
-								}
-							}
-						>
+						<Stack className={`header-join`} style={{}}>
 							<Stack className={'container'}>
 								<strong>{}</strong>
 								<span>{}</span>
@@ -86,7 +77,9 @@ const withLayoutJoin = (Component: any) => {
 
 						<Chat />
 
-						{/* <Stack id={'footer'}><Footer /></Stack> */}
+						<Stack id={'footer'}>
+							<Footer />
+						</Stack>
 					</Stack>
 				</>
 			);

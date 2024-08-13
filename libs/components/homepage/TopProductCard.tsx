@@ -48,7 +48,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 							<span>{product?.productSeason} season</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							{/* <img src="/img/icons/color.svg" alt="" /> */}
 							<span>{product?.productColor} color</span>
 						</div>
 						<div>
@@ -100,7 +100,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 					</strong>
 					<p className={'desc'}>{product?.productDesc ?? 'no description'}</p>
 					<div className={'option-season'}>
-						<img src="/img/icons/ .svg" alt="" />
+						{/* <img src="/img/icons/ .svg" alt="" /> */}
 						<span>For {product?.productSeason} season</span>
 					</div>
 					<div className={'options'}>

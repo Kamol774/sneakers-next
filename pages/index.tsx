@@ -32,7 +32,6 @@ const Home: NextPage = () => {
 						<Socials />
 						<TrendProducts />
 						<PopularProducts />
-						{/* <Stack className="container"></Stack> */}
 					</Stack>
 				</Stack>
 			</Stack>

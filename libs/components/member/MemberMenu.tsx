@@ -19,7 +19,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const category: any = router.query?.category;
-	const [member, setMember] = useState<Member | null>();
+	const [member, setMember] = useState<Member | null>(null);
 	const { memberId } = router.query;
 
 	/** APOLLO REQUESTS **/
@@ -29,7 +29,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 		error: getMemberError,
 		refetch: getMemberRefetch,
 	} = useQuery(GET_MEMBER, {
-		fetchPolicy: 'network-only',
+		fetchPolicy: 'network-only', // by default cache-first
 		variables: { input: memberId },
 		skip: !memberId,
 		notifyOnNetworkStatusChange: true,
@@ -37,6 +37,10 @@ const MemberMenu = (props: MemberMenuProps) => {
 			setMember(data?.getMember);
 		},
 	});
+
+	if (getMemberError) {
+		router.push('/_error');
+	}
 
 	if (device === 'mobile') {
 		return <div>MEMBER MENU MOBILE</div>;
@@ -99,9 +103,9 @@ const MemberMenu = (props: MemberMenuProps) => {
 									>
 										<div className={'flex-box'}>
 											{category === 'products' ? (
-												<img className={'com-icon'} src={'/img/icons/product.png'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 											) : (
-												<img className={'com-icon'} src={'/img/icons/product.png'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 												Products

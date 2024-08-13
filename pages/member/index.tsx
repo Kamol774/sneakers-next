@@ -13,8 +13,9 @@ import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } f
 import MemberFollowings from '../../libs/components/member/MemberFollowings';
 import { userVar } from '../../apollo/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { LIKE_TARGET_MEMBER, SUBSCRIBE, UNSUBSCRIBE } from '../../apollo/user/mutation';
+import { SUBSCRIBE, UNSUBSCRIBE, LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { Messages } from '../../libs/config';
+import { Message } from '../../libs/enums/common.enum';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -29,9 +30,21 @@ const MemberPage: NextPage = () => {
 	const user = useReactiveVar(userVar);
 
 	/** APOLLO REQUESTS **/
-	const [subscribe] = useMutation(SUBSCRIBE);
-	const [unsubscribe] = useMutation(UNSUBSCRIBE);
-	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
+	const [subscribe, { error: createSubscribeError }] = useMutation(SUBSCRIBE, {
+		onError: (error) => {
+			router.push('/_error');
+		},
+	});
+	const [unsubscribe, { error: createUnsubscribeError }] = useMutation(UNSUBSCRIBE, {
+		onError: (error) => {
+			router.push('/_error');
+		},
+	});
+	const [likeTargetMember, { error: createLikeError }] = useMutation(LIKE_TARGET_MEMBER, {
+		onError: (error) => {
+			router.push('/_error');
+		},
+	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -51,18 +64,17 @@ const MemberPage: NextPage = () => {
 	/** HANDLERS **/
 	const subscribeHandler = async (id: string, refetch: any, query: any) => {
 		try {
-			console.log('_id:', id);
 			if (!id) throw new Error(Messages.error1);
 			if (!user._id) throw new Error(Messages.error2);
+
 			await subscribe({
 				variables: {
 					input: id,
 				},
 			});
-			await sweetTopSmallSuccessAlert('Followed', 800);
+			await sweetTopSmallSuccessAlert('Subscribed!', 800);
 			await refetch({ input: query });
 		} catch (err: any) {
-			console.log('Error on subscribeHandler:', err);
 			sweetErrorHandling(err).then();
 		}
 	};
@@ -77,29 +89,11 @@ const MemberPage: NextPage = () => {
 					input: id,
 				},
 			});
-			await sweetTopSmallSuccessAlert('Unfollowed', 800);
+
+			await sweetTopSmallSuccessAlert('Unsubscribed!', 800);
 			await refetch({ input: query });
 		} catch (err: any) {
-			console.log('error on unsubscribeHandler:', err);
 			sweetErrorHandling(err).then();
-		}
-	};
-
-	const likeMemberHandler = async (id: string, refetch: any, query: any) => {
-		try {
-			if (!id) return;
-			if (!user._id) throw new Error(Messages.error2);
-
-			await likeTargetMember({
-				variables: {
-					input: id,
-				},
-			});
-			await sweetTopSmallSuccessAlert('Success', 800);
-			await refetch({ input: query });
-		} catch (err: any) {
-			console.log('Error on likeMemberHandler:', err.message);
-			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
@@ -109,6 +103,23 @@ const MemberPage: NextPage = () => {
 			else await router.push(`/member?memberId=${memberId}`);
 		} catch (error) {
 			await sweetErrorHandling(error);
+		}
+	};
+
+	const likeMemberHandler = async (id: string, refetch: any, query: any) => {
+		try {
+			if (!id) throw new Error(Messages.error1);
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+			// execute likeTargetProduct Mutation
+			await likeTargetMember({
+				variables: { input: id },
+			});
+			await sweetTopSmallSuccessAlert('Success!', 800);
+			await refetch({ input: query });
+		} catch (err: any) {
+			console.log('ERROR, likeProductHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
@@ -130,16 +141,16 @@ const MemberPage: NextPage = () => {
 										<MemberFollowers
 											subscribeHandler={subscribeHandler}
 											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
+											likeMemberHandler={likeMemberHandler}
 										/>
 									)}
 									{category === 'followings' && (
 										<MemberFollowings
 											subscribeHandler={subscribeHandler}
 											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
+											likeMemberHandler={likeMemberHandler}
 										/>
 									)}
 									{category === 'articles' && <MemberArticles />}

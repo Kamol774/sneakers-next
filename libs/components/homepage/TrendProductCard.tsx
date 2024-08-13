@@ -61,7 +61,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 							<span>{product?.productSeason} season</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/color.svg" alt="" />
 							<span>{product?.productColor} color</span>
 						</div>
 						<div>
@@ -113,7 +113,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 					</strong>
 					<p className={'desc'}>{product?.productDesc ?? 'no description'}</p>
 					<div className={'option-season'}>
-						<img src="/img/icons/ .svg" alt="" />
+						{/* <img src="/img/icons/season.png" alt="" /> */}
 						<span>For {product?.productSeason} season</span>
 					</div>
 					<div className={'options'}>

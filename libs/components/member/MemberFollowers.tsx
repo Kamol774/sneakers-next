@@ -37,7 +37,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 		error: getMemberFollowersError,
 		refetch: getMemberFollowersRefetch,
 	} = useQuery(GET_MEMBER_FOLLOWERS, {
-		fetchPolicy: 'network-only',
+		fetchPolicy: 'network-only', // by default cache-first
 		variables: { input: followInquiry },
 		skip: !followInquiry?.search?.followingId,
 		notifyOnNetworkStatusChange: true,
@@ -47,6 +47,9 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 		},
 	});
 
+	// if (getMemberFollowersError) {
+	// 	router.push('/_error')
+	// }
 	/** LIFECYCLES **/
 	useEffect(() => {
 		if (router.query.memberId)
@@ -65,7 +68,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>SNEAKERS FOLLOWS MOBILE</div>;
+		return <div>Epic Rides FOLLOWS MOBILE</div>;
 	} else {
 		return (
 			<div id="member-follows-page">
@@ -135,9 +138,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 												<Button
 													variant="outlined"
 													sx={{ background: '#ed5858', ':hover': { background: '#ee7171' } }}
-													onClick={() =>
-														unsubscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
-													}
+													onClick={() => unsubscribeHandler(follower?.followerData?._id, null, followInquiry)}
 												>
 													Unfollow
 												</Button>

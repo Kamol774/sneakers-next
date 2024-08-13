@@ -154,7 +154,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						colorsList: [value],
 					},
 				});
-				typeStateChangeHandler();
+				setOpenColors(false);
 			} catch (err: any) {
 				console.log('ERROR, productColorSelectHandler:', err);
 			}
@@ -249,7 +249,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{productColor.map((color: string) => {
 							return (
 								<span onClick={() => productColorSelectHandler(color)} key={color}>
-									<span>{color}</span>
+									<img src={`/img/banner/colors/${color.toLowerCase()}.png`} alt="" />
+									{/* <span>{color}</span> */}
 								</span>
 							);
 						})}

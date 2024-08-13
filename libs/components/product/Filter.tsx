@@ -377,7 +377,7 @@ const Filter = (props: FilterType) => {
 		[searchFilter],
 	);
 
-	const productSizeHandler = useCallback(
+	/*const productSizeHandler = useCallback(
 		async (e: any, type: string) => {
 			const value = e.target.value;
 
@@ -426,7 +426,7 @@ const Filter = (props: FilterType) => {
 			}
 		},
 		[searchFilter],
-	);
+	); */
 
 	const productPriceHandler = useCallback(
 		async (value: number, type: string) => {
