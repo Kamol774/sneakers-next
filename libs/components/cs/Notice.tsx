@@ -23,7 +23,7 @@ interface NoticesListProps {
 	initialInput?: {
 		page?: number;
 		limit?: number;
-		NoticeStatus?: 'ACTIVE';
+		noticeStatus?: 'ACTIVE';
 	};
 }
 const formatDate = (dateString: string | number | Date) => {
