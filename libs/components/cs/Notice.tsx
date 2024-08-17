@@ -49,7 +49,7 @@ interface Notice {
 interface NoticeTableProps {
 	notices: Notice[];
 }
-
+//@ts-ignore
 const NoticesList: NextPage<NoticesListProps> = ({ initialInput, ...props }) => {
 	const device = useDeviceDetect();
 	const [notices, setNotices] = useState<any[]>([]);

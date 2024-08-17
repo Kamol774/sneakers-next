@@ -208,11 +208,11 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<span>{searchFilter?.search?.brandList ? searchFilter?.search?.brandList[0] : t('Brand')} </span>
 							<ExpandMoreIcon />
 						</Box>
-						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
+						<Box component="div" className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
 							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Product type')} </span>
 							<ExpandMoreIcon />
 						</Box>
-						<Box className={`box ${openColors ? 'on' : ''}`} onClick={colorsStateChangeHandler}>
+						<Box component="div" className={`box ${openColors ? 'on' : ''}`} onClick={colorsStateChangeHandler}>
 							<span>
 								{searchFilter?.search?.colorsList ? `${searchFilter?.search?.colorsList[0]} color` : t('Colors')}
 							</span>

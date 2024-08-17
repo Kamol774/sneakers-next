@@ -5,6 +5,9 @@
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"paths": {
+			"react": ["./node_modules/@types/react"]
+		},
 		"forceConsistentCasingInFileNames": true,
 		// "suppressImplicitAnyIndexErrors": true,
 		"noEmit": true,
@@ -14,6 +17,8 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
+		"noImplicitAny": true,
+		"types": ["@emotion/react/types/css-prop"],
 		"incremental": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

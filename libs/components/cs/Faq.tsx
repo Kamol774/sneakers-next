@@ -44,7 +44,7 @@ interface FaqsListProps {
 		faqType?: string;
 	};
 }
-
+//@ts-ignore
 const FaqsList: NextPage<FaqsListProps> = ({ initialInput, ...props }) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
