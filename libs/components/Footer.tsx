@@ -77,7 +77,7 @@ const Footer = () => {
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>total free customer care</span>
-							<p>+82 10 3946 1881</p>
+							<p>+998 88 246 7774</p>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>Additional number</span>
