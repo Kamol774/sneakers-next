@@ -110,7 +110,7 @@ const Join: NextPage = () => {
 								</div>
 							)}
 						</Stack>
-						<Box className={'register'}>
+						<Box component="div" className={'register'}>
 							{!loginView && (
 								<div className={'type-option'}>
 									<span className={'text'}>I want to be registered as:</span>
@@ -174,7 +174,7 @@ const Join: NextPage = () => {
 								</Button>
 							)}
 						</Box>
-						<Box className={'ask-info'}>
+						<Box component="div" className={'ask-info'}>
 							{loginView ? (
 								<p>
 									Not registered yet?
