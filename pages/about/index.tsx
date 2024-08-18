@@ -15,33 +15,36 @@ const About: NextPage = () => {
 				<Stack className={'intro'}>
 					<Stack className={'container'}>
 						<Stack className={'left'}>
-							<strong>We're on a Mission to Change View of Real Estate Field.</strong>
+							<strong>We're on a Mission to Change View of Sneakers Brands.</strong>
 						</Stack>
 						<Stack className={'right'}>
 							<p>
-								It doesn’t matter how organized you are — a surplus of toys will always ensure your house is a mess
-								waiting to happen. Fortunately, getting kids on board with the idea of ditching their stuff is a lot
-								easier than it sounds.
+								Sneakers are versatile shoes designed for both casual wear and sports, characterized by their flexible
+								rubber soles and comfortable build1. They have evolved from simple athletic footwear to a significant
+								cultural phenomenon, influencing fashion and lifestyle trends worldwide.
 								<br />
 								<br />
-								Maecenas quis viverra metus, et efficitur ligula. Nam congue augue et ex congue, sed luctus lectus
-								congue. Integer convallis condimentum sem. Duis elementum tortor eget condimentum tempor. Praesent
-								sollicitudin lectus ut pharetra pulvinar.
+								Sneakers can be worn for various activities, from casual outings to sports, making them a practical and
+								stylish option. Their breathable materials also help keep feet cool and dry, enhancing overall foot
+								health.
 							</p>
 							<Stack className={'boxes'}>
 								<div className={'box'}>
 									<div>
 										<img src="/img/icons/garden.svg" alt="" />
 									</div>
-									<span>Modern Villa</span>
-									<p>Nullam sollicitudin blandit Nullam maximus.</p>
+									<span>Modern style</span>
+									<p>Color-blocked and brightly-colored sneakers are in vogue, adding a vibrant touch to any outfit.</p>
 								</div>
 								<div className={'box'}>
 									<div>
 										<img src="/img/icons/securePayment.svg" alt="" />
 									</div>
 									<span>Secure Payment</span>
-									<p>Nullam sollicitudin blandit Nullam maximus.</p>
+									<p>
+										Digital wallets like Apple Pay, Google Pay, and PayPal offer additional layers of security, such as
+										encryption and tokenization, which help protect your financial information.
+									</p>
 								</div>
 							</Stack>
 						</Stack>
@@ -50,7 +53,7 @@ const About: NextPage = () => {
 				<Stack className={'statistics'}>
 					<Stack className={'container'}>
 						<Stack className={'banner'}>
-							<img src="/img/banner/header1.svg" alt="" />
+							<img src="/img/banner/sneakers.png" alt="" />
 						</Stack>
 						<Stack className={'info'}>
 							<Box component={'div'}>
@@ -70,13 +73,13 @@ const About: NextPage = () => {
 				</Stack>
 				<Stack className={'agents'}>
 					<Stack className={'container'}>
-						<span className={'title'}>Our Exclusive Agetns</span>
+						<span className={'title'}>Our Exclusive Agents</span>
 						<p className={'desc'}>Aliquam lacinia diam quis lacus euismod</p>
 						<Stack className={'wrap'}></Stack>
 					</Stack>
 				</Stack>
 				<Stack className={'options'}>
-					<img src="/img/banner/aboutBanner.svg" alt="" className={'about-banner'} />
+					<img src="/img/banner/main-banner.jpg" alt="" className={'about-banner'} />
 					<Stack className={'container'}>
 						<strong>Let’s find the right selling option for you</strong>
 						<Stack>
@@ -137,7 +140,7 @@ const About: NextPage = () => {
 							</div>
 							<div className={'black'}>
 								<img src="/img/icons/call.svg" alt="" />
-								920 851 9087
+								88 246 7774
 							</div>
 						</Box>
 					</Stack>
