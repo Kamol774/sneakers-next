@@ -471,7 +471,13 @@ const Top = () => {
 
 								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
 									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img className="img-flag" src={'/img/'} onClick={langChoice} id="en" alt={'usaFlag'} />
+										<img
+											className="img-flag"
+											src={'/img/flag/langen.png'}
+											onClick={langChoice}
+											id="en"
+											alt={'usaFlag'}
+										/>
 										{t('English')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="kr">
