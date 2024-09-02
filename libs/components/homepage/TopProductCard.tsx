@@ -115,7 +115,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<div className={'price'}>${product?.productPrice}</div>
+						<div className={'price'}>₩ {product?.productPrice}</div>
 
 						<div className="view-like-box">
 							<IconButton color={'default'}>
