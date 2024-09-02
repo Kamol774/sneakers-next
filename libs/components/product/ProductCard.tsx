@@ -48,7 +48,7 @@ const ProductCard = (props: ProductCardType) => {
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(product?.productPrice)}</Typography>
+						<Typography>₩ {formatterStr(product?.productPrice)}</Typography>
 					</Box>
 				</Stack>
 				<Stack className="bottom">

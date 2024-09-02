@@ -61,7 +61,7 @@ export const ProductCard = (props: ProductCardProps) => {
 				<Stack className="information-box" onClick={() => pushProductDetail(product?._id)}>
 					<Typography className="name">{product.productTitle}</Typography>
 					<Typography className="price">
-						<strong>${formatterStr(product?.productPrice)}</strong>
+						<strong>₩ {formatterStr(product?.productPrice)}</strong>
 					</Typography>
 				</Stack>
 				<Stack className="date-box">

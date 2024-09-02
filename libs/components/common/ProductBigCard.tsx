@@ -46,7 +46,7 @@ const ProductBigCard = (props: ProductBigCardProps) => {
 						</div>
 					)}
 
-					<div className={'price'}>${formatterStr(product?.productPrice)}</div>
+					<div className={'price'}>₩ {formatterStr(product?.productPrice)}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{product?.productTitle}</strong>

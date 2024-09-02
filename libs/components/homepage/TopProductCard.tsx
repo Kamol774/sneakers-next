@@ -96,7 +96,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 							pushDetailHandler(product?._id);
 						}}
 					>
-						{product?.productDesc}
+						{product?.productTitle}
 					</strong>
 					<p className={'desc'}>{product?.productDesc ?? 'no description'}</p>
 					<div className={'option-season'}>

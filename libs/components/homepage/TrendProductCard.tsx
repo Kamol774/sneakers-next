@@ -56,15 +56,15 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 					</strong>
 					<p className={'desc'}>{product?.productDesc ?? 'no description'}</p>
 					<div className={'options'}>
-						<div>
+						<div className="mob">
 							<img src="/img/icons/season.svg" alt="" />
 							<span>{product?.productSeason} season</span>
 						</div>
-						<div>
-							<img src="/img/icons/color.svg" alt="" />
+						<div className="mob">
+							{/* <img src="/img/icons/color.svg" alt="" className="color-img" /> */}
 							<span>{product?.productColor} color</span>
 						</div>
-						<div>
+						<div className="mob">
 							<img src="/img/icons/expand.svg" alt="" />
 							<span>{product?.productSize} size</span>
 						</div>
@@ -109,7 +109,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 							pushDetailHandler(product?._id);
 						}}
 					>
-						{product?.productDesc}
+						{product?.productTitle}
 					</strong>
 					<p className={'desc'}>{product?.productDesc ?? 'no description'}</p>
 					<div className={'option-season'}>
@@ -128,7 +128,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<div className={'price'}>${product?.productPrice}</div>
+						<div className={'price'}>₩ {product?.productPrice}</div>
 
 						<div className="view-like-box">
 							<IconButton color={'default'}>

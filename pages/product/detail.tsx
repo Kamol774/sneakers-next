@@ -277,7 +277,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 											<Typography>{product?.productLikes}</Typography>
 										</Stack>
 									</Stack>
-									<Typography>${formatterStr(product?.productPrice)}</Typography>
+									<Typography>₩ {formatterStr(product?.productPrice)}</Typography>
 								</Stack>
 							</Stack>
 							<Stack className={'images'}>
@@ -342,7 +342,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 											<Stack className={'left'}>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Price</Typography>
-													<Typography className={'data'}>${formatterStr(product?.productPrice)}</Typography>
+													<Typography className={'data'}>₩ {formatterStr(product?.productPrice)}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Product Size</Typography>

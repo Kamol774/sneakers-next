@@ -53,15 +53,15 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 					{/* <p className={'desc'}>{product.productAddress}</p> */}
 					<div className={'options'}>
 						<div>
-							<img src="/img/icons/season.png" alt="" />
+							{/* <img src="/img/icons/season.png" alt="" /> */}
 							<span>{product?.productSeason} season</span>
 						</div>
 						<div>
-							<img src="/img/icons/color.svg" alt="" />
+							{/* <img src="/img/icons/color.svg" alt="" /> */}
 							<span>{product?.productColor} color</span>
 						</div>
 						<div>
-							<img src="/img/icons/size.webp" alt="" />
+							{/* <img src="/img/icons/size.webp" alt="" /> */}
 							<span>{product?.productSize} size</span>
 						</div>
 					</div>
@@ -95,7 +95,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 						''
 					)}
 
-					<div className={'price'}>${product.productPrice}</div>
+					<div className={'price'}>₩ {product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
