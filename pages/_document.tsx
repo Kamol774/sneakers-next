@@ -6,7 +6,6 @@ export default function Document() {
 			<Head>
 				<meta name="robots" content="index,follow" />
 				<link rel="icon" type="image/png" href="/img/logo/main-logo.svg" />
-
 				{/* SEO */}
 				<meta name="keyword" content={'sneaker, sneakers.uz, sneakers mern, mern nestjs fullstack'} />
 				<meta
