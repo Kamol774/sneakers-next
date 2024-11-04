@@ -6,10 +6,7 @@ import Footer from '../Footer';
 import { Stack } from '@mui/material';
 import HeaderFilter from '../homepage/HeaderFilter';
 import FiberTop from '../common/FiberTop';
-<<<<<<< HEAD
-=======
 import Fiber from '../common/FiberTop';
->>>>>>> develop
 import { userVar } from '../../../apollo/store';
 import { useReactiveVar } from '@apollo/client';
 import { getJwtToken, updateUserInfo } from '../../auth';
