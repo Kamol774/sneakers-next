@@ -96,6 +96,10 @@
 	"resolutions": {
 		"fast-uri": "^3.1.7",
 		"postcss": "^8.5.23",
-		"three-mesh-bvh": "0.7.6"
+		"three-mesh-bvh": "0.7.6",
+		"eslint-config-next/**/glob": "^10.5.0",
+		"@toast-ui/react-editor/**/dompurify": "^3.4.15",
+		"@react-three/drei/uuid": "^11.1.1",
+		"react-cookie/**/cookie": "^0.7.2"
 	}
 }
